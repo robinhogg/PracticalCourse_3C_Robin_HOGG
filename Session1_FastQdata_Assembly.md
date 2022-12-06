@@ -77,5 +77,36 @@ où
 -t (nombre de CPU offert pour la tâche 
 --nogroupe (graph pour chaque base)
 ```
+**Résultats obvervés :**
+		
+>La qualité globale des reads 3C sont excellent. Comparer à un small RNA seq, on n'a pas de séquence répété alarmante. On voit par contre, dans les >séquences surrepressenté les adaptateur TruSeq adaptater index 7 (mais vraiment léger).
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 7 : En analysant et comparant les rapports de qualité, quelles différences observez vous entre vos différentes banques ? Quelle est l’enzyme que vous avez utilisée pour faire votre banque 3C ?**
+>Pour le contenue en base de nos reads, pour SG, on voit que c'est homogène tout le long. Pour 3C, en début de reads, on voit un enrechissement de la >séquence : GATC. Cela proviens des enzymes de restriction que l'on as utilisées. On a utilisé une enzyme équivalente à DpnII (GATC). Donc, on enrichie >notre librairie en bout de séquence par ce motif. Cela permet de voir aussi que la banque 3C à bien marché : c'est le cas ici.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## C. Cutadapt : détection et retrait des séquences d’adaptateurs
+
+On va netoyer/grignoter nos reads. Onpeut par exemple enlever des séquences "enzyme de restriction" en début de reads, grignoter les reads si la qualité est mauvaise dans les bouts, supprimer les adaptateurs etc.
+Pour ce faire on va utilisé **Cutadapt** (accepte missmatch dans les adapteurs jusqu'à un certain niveau).
+
+Les commandes que j'ai utilisé pour cut sont les suivantes :
+```
+cutadapt -q 20 -m 45 -j 2 -a file:database/adaptateur.fasta -A file:database/adaptateur.fasta -o fastq/lib9_filtre_SG_for.fastq.gz -p fastq/lib9_filtre_SG_rev.fastq.gz fastq/lib9_SG_for.fastq.gz fastq/lib9_SG_rev.fastq.gz > log_files/cutadapt_SG.log 2>&1
+```
+```
+cutadapt -q 20 -m 33 -j 2 -a file:database/adaptateur.fasta -A file:database/adaptateur.fasta -o fastq/lib9_filtre_3C_for.fastq.gz -p fastq/lib9_filtre_3C_rev.fastq.gz fastq/lib9_3C_for.fastq.gz fastq/lib9_3C_rev.fastq.gz > log_files/cutadapt_3C.log 2>&1
+```
+Où
+```
+-q représentla qualité minimal accepté
+-m est la longueur minimal du read 
+-j nombre de CPU pour la tâche
+-a séquence adaptateur que on veut cut
+```
+On relance ensuite FastQC sur les fichiers filtrés.
+
+/Formation_AdG/FastQC/fastqc -t 4 --nogroup -o fastq/rapport_qualite/ fastq/lib9_filtre_SG_for.fastq.gz > log_files/fastqc_filter_SG_for.log 2>&1
+
 
 FastQC en fasta : sed -n '1~4s/^@/>/p;2~4p' fastq_dir/reads.LegPneuPar3X.fastq | fold -w 80 > fasta_dir/reads.LegPneuPar3X.fasta
