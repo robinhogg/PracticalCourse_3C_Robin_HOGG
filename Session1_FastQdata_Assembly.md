@@ -123,7 +123,53 @@ Pour chaque fichier :
 ## D. Assemblage : Megahit
 
 On va lancer un programme d'assemblage au nom de **MegaHit* qui va donc assembler nos reads sous forme de contigs. On fera ce megahit sur SG (pas 3C car, petit reads et pas beaucoup de reads et les for et rev peuvent être éloignés de plusiuers Mb)
+```
+/Formation_AdG/MEGAHIT-1.2.9-Linux-x86_64-static/bin/megahit -t 2 -1 fastq/lib9_filtre_SG_for.fastq.gz -2 fastq/lib9_filtre_SG_rev.fastq.gz -o assemblage/lib9/ > log_files/megahit_lib9_log 2>&1
+```
+`Par manque de temps, on va sauter cette étape et récuprer directement un assemblage complet réaliser par l'encadrant :`
+```
+scp rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_ENSEIGNEMENTS/2022-2023/ANALYSE_DES_GENOMES_2022_2023/TP_Meta3C/assemblage/assembly_all.fa assemblage/ 
+```
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 9: Combien de contigs avez vous dans votre assemblage ?**
+Pour répondre à cette question on peut faire simplement :
+```
+grep -c "^>" assembly_all.fa
+```
+>On trouve alors que on à 20566 contigs.
 
-/Formation_AdG/MEGAHIT-1.2.9-Linux-x86_64-static/bin/megahit -t 2 -1 fastq/lib9_filtre_SG_for.fastq.gz -2 fastq/lib9_filtre_SG_rev.fastq.gz -o assemblage/lib9/ > log_files/megahit_lib9_log  2>&1
+**Question 10: Quelle est la taille de votre plus grand contig ?**
+J'ai fais :
+```
+cat assembly_all.fa | sed 's/_\(.*\)_\(.*\)_\(.*\)/ \1 \2 \3 /' | sort -k 4,4 -g -r | head -1 | awk '{print "le plus grand contig fait : "$4"bp"}'
+```
+Une version épurée :
+```
+cat assembly_all.fa | grep "^>" | sed 's/_/ /g' | sort -k 4,4 -g -r | head -1 | awk '{print "le plus grand contig fait : "$4"bp"}'
+```
+>La taille du plus grand contig est de XX XXX bp.
+**Question 11: Quelle est la taille moyenne de vos contigs ?**
+Pour ce faire, pas le choix, on passe par awk et son NR (nombre de ligne d'un fichier) :
+```
+cat assembly_all.fa | grep "^>" | awk -F "_" '{sum+=$4} END {print sum/NR}' | awk '{print "en moyennne les contigs font : "$1"bp"}'
+```
+>La taille moyenne de nos contigs est de XX XXX bp.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+On va ensuite chercher à obtenir des informations statistique sur notre assemblage. Pour ce faire, on va utiliser le programme **Quast** tel que :
+```
+/Formation_AdG/quast-5.1.0rc1/quast.py assemblage/assembly_all.fa -o assemblage/rapport_assemblage/all_lib > log_files/quast_all.log 2>&1
+```
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 14 : Quelles sont les données fournies par Quast ?**
+>Les données sont assez diverses. On a par exemple la taille totale de notre assemblage : 171 321 468 bp qui nous permet d'estimer à environs 50, le nombre d'espèces attendus (3-4 Mb par génom). On a aussi des information sur la qualité de l'assemblage (avec les N et L).  On a aussi la couvertur en %GC et encore bon nombre d'informations sur l'assemblage.
 
+**Question 15 : Donnez une définition du N50 ?**
+> * N50 =information sur la fragmentation de assemblage : taille du plus petit conting permettant de couvrir 50% de l'assemblage. (tout les contigs au dessus (avec >lui) permette de faire 50% de l'assemblage)
+> * L50 = rang de ce contigs dans tout les contigs.
+
+**Question 16 : Quelle est la valeur théorique du N100 ?**
+>C'est la taille du plus petits contigs de notre assemblage.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Texte normal suivi d’un [color=#26B260]texte coloré en vert[/color] dans un paragraphe.
 FastQC en fasta : sed -n '1~4s/^@/>/p;2~4p' fastq_dir/reads.LegPneuPar3X.fastq | fold -w 80 > fasta_dir/reads.LegPneuPar3X.fasta
