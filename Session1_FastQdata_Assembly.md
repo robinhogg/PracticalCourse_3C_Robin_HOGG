@@ -148,6 +148,7 @@ Une version épurée :
 cat assembly_all.fa | grep "^>" | sed 's/_/ /g' | sort -k 4,4 -g -r | head -1 | awk '{print "le plus grand contig fait : "$4"bp"}'
 ```
 >La taille du plus grand contig est de XX XXX bp.
+
 **Question 11: Quelle est la taille moyenne de vos contigs ?**
 Pour ce faire, pas le choix, on passe par awk et son NR (nombre de ligne d'un fichier) :
 ```
