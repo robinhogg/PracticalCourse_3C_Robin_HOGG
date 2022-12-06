@@ -1,3 +1,4 @@
+
 ```
 cutadapt -q 20 -m 33 -j 2 -a file:database/adaptateur.fasta -A file:database/adaptateur.fasta -o fastq/lib9_filtre_3C_for.fastq.gz -p fastq/lib9_filtre_3C_rev.fastq.gz fastq/lib9_3C_for.fastq.gz fastq/lib9_3C_rev.fastq.gz > log_files/cutadapt_3C.log 2>&1
 ```
