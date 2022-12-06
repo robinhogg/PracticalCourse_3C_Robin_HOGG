@@ -14,7 +14,18 @@ Avant de traiter les données ont les récupèrent :
   scp -r rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_ENSEIGNEMENTS/2022-2023/ANALYSE_DES_GENOMES_2022_2023/TP_Meta3C/software/ ./
    ```
 
+Avant de procéder à l'analyse ou à l'exploitation d'un ensemble de données de séquençage, il est important de réaliser des contrôles de qualité des séquences brutes et d'appliquer des filtres si nécessaires. Cette opération permettra de s'assurer qu'il n'y a pas de problèmes au niveaux des reads (qualité des reads, %GC, répartition des bases homogènes, contamination, etc....)
 
+## A. On visualise les fichiers fastq
+
+On visualise les données avec 
 ```
-cutadapt -q 20 -m 33 -j 2 -a file:database/adaptateur.fasta -A file:database/adaptateur.fasta -o fastq/lib9_filtre_3C_for.fastq.gz -p fastq/lib9_filtre_3C_rev.fastq.gz fastq/lib9_3C_for.fastq.gz fastq/lib9_3C_rev.fastq.gz > log_files/cutadapt_3C.log 2>&1
+zcat (nom du fichier.gz) | head
 ```
+
+>Ceci est une **zone en retrait**.
+>La zone continue ici
+
+>Ceci est une autre **zone de retrait**.
+Cette zone continue également dans la ligne suivante.
+Cependan, cette ligne n’est plus en retrait
