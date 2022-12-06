@@ -124,6 +124,6 @@ Pour chaque fichier :
 
 On va lancer un programme d'assemblage au nom de **MegaHit* qui va donc assembler nos reads sous forme de contigs. On fera ce megahit sur SG (pas 3C car, petit reads et pas beaucoup de reads et les for et rev peuvent être éloignés de plusiuers Mb)
 
-
+/Formation_AdG/MEGAHIT-1.2.9-Linux-x86_64-static/bin/megahit -t 2 -1 fastq/lib9_filtre_SG_for.fastq.gz -2 fastq/lib9_filtre_SG_rev.fastq.gz -o assemblage/lib9/ > log_files/megahit_lib9_log  2>&1
 
 FastQC en fasta : sed -n '1~4s/^@/>/p;2~4p' fastq_dir/reads.LegPneuPar3X.fastq | fold -w 80 > fasta_dir/reads.LegPneuPar3X.fasta
