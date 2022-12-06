@@ -68,6 +68,14 @@ for type in 3C SG; do for sens in for rev; do echo "lib in progress:""$type""$se
 ## B. On visualise la qualité de nos fichiers .fastq
 On va réaliser le contrôle de qualité à l'aide du programme **FastQC**
 
-<span style="color: red;">TEST TEST TEST COLOR TEST</span>
+On lance **FastQC** avec cette commande pour chaque fichier : 
+```
+/Formation_AdG/FastQC/fastqc -t 2 --nogroupe -o fastq/rapport_qualite/ fastq/lib9_SG_for.fastq.gz > log_files/fastqc_raw_SG_for.log 2>&1
+```
+où 
+```
+-t (nombre de CPU offert pour la tâche 
+--nogroupe (graph pour chaque base)
+```
 
 FastQC en fasta : sed -n '1~4s/^@/>/p;2~4p' fastq_dir/reads.LegPneuPar3X.fastq | fold -w 80 > fasta_dir/reads.LegPneuPar3X.fasta
