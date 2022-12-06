@@ -61,3 +61,5 @@ Ensuite, on réalise le contrôle de qualité à l'aide du programme FastQC
 >Ceci est une autre **zone de retrait**.
 Cette zone continue également dans la ligne suivante.
 Cependan, cette ligne n’est plus en retrait
+
+FastQC en fasta : sed -n '1~4s/^@/>/p;2~4p' fastq_dir/reads.LegPneuPar3X.fastq | fold -w 80 > fasta_dir/reads.LegPneuPar3X.fasta
