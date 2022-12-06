@@ -28,10 +28,10 @@ zcat (nom du fichier.gz) | head
 >Dans un ficher .fastq, il y a 4 lignes par read.
 
 **Question 2 : A quoi correspond chaque ligne ?**
->	La première ligne (@) donne la description de la séquence/reads (ici : @nom_du_sequenceur:flowcell:coordonée:sens_du_read(2 = reverse):index)\n
->	La deuxième ligne est la séquence.
->	La troisième ligne est séparatrice (+).
->	La dernière ligne est une ligne de qualité en format ASCII (X (qualité) + 33).	
+> * La première ligne (@) donne la description de la séquence/reads (ici : @nom_du_sequenceur:flowcell:coordonée:sens_du_read(2 = reverse):index)
+> * La deuxième ligne est la séquence.
+> * La troisième ligne est séparatrice (+).
+> * La dernière ligne est une ligne de qualité en format ASCII (X (qualité) + 33).	
 					
 **Question 3 : Combien de reads forward et reverse avez-vous dans vos jeux de données ?**
 
@@ -52,14 +52,22 @@ for type in 3C SG; do for sens in for rev; do echo "lib in progress:""$type""$se
 |    3C_for   |    5 000 000    |    35   |
 |    3C_rev    |    5 000 000    |    35    |
 
+**Question 4 : Quelle est la longueur des reads (SG et 3C) ?**
+
+>Les reads 3C sont beaucoup plus petits. Pour le 3C on veut du réseau d'intéraction = pas besoin de grand reads qui coute chère. Pour l'assemblage, il faut des grands reads (SG)
+
+**Question 5 : Quels "Tags" sont associés à vos librairies ?
+
+>Tags = index de l'adaptateur. SG = GAATTCGT+AGGCTATA , 3C = AGCGATAG+AGGCTATA
+
+**Question 6 : Quelles différences observez-vous entre les Reads SG et les Reads 3C ?**
+			
+>Ils possèdent une taille différente, un tag différent et un nombre de reads total différent.
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-Ensuite, on réalise le contrôle de qualité à l'aide du programme FastQC
+## B. On visualise la qualité de nos fichiers .fastq
+On va réaliser le contrôle de qualité à l'aide du programme **FastQC**
 
->Ceci est une **zone en retrait**.
->La zone continue ici
-
->Ceci est une autre **zone de retrait**.
-Cette zone continue également dans la ligne suivante.
-Cependan, cette ligne n’est plus en retrait
+<span style="color: red;">TEST TEST TEST COLOR TEST</span>
 
 FastQC en fasta : sed -n '1~4s/^@/>/p;2~4p' fastq_dir/reads.LegPneuPar3X.fastq | fold -w 80 > fasta_dir/reads.LegPneuPar3X.fasta
