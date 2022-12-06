@@ -77,8 +77,7 @@ où
 -t (nombre de CPU offert pour la tâche 
 --nogroupe (graph pour chaque base)
 ```
-**Résultats obvervés :**
-		
+**Résultats obvervés :**	
 >La qualité globale des reads 3C sont excellent. Comparer à un small RNA seq, on n'a pas de séquence répété alarmante. On voit par contre, dans les >séquences surrepressenté les adaptateur TruSeq adaptater index 7 (mais vraiment léger).
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 7 : En analysant et comparant les rapports de qualité, quelles différences observez vous entre vos différentes banques ? Quelle est l’enzyme que vous avez utilisée pour faire votre banque 3C ?**
@@ -99,14 +98,32 @@ cutadapt -q 20 -m 33 -j 2 -a file:database/adaptateur.fasta -A file:database/ada
 ```
 Où
 ```
--q représentla qualité minimal accepté
+-q représente la qualité minimal accepté
 -m est la longueur minimal du read 
 -j nombre de CPU pour la tâche
 -a séquence adaptateur que on veut cut
 ```
-On relance ensuite FastQC sur les fichiers filtrés.
+On relance ensuite **FastQC** sur les fichiers filtrés.
+Pour chaque fichier :
+```
+/Formation_AdG/FastQC/fastqc -t 2 --nogroup -o fastq/rapport_qualite/ fastq/lib9_filtre_SG_for.fastq.gz > log_files/fastqc_filter_SG_for.log 2>&1
+```
+**Résultats obvervés :**	
+>On a plus d'aptateur sur-représenter dans mes données sauf dans le 3C rev où on retrouve quand même une séquence intriguante (METTRE SEQUENCE) dans les séquences sur-représentées du rapport fastQC n'ayant aucun hit dans leur banque et dans le blastn.
 
-/Formation_AdG/FastQC/fastqc -t 4 --nogroup -o fastq/rapport_qualite/ fastq/lib9_filtre_SG_for.fastq.gz > log_files/fastqc_filter_SG_for.log 2>&1
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 8 : Combien de reads avez-vous gardé après cette étape de filtration ?**
+|Nom du fichier (.fastq.gz) |Nombre de reads au départ|Nombre de read gardés| Nombre de reads perdu |
+|--------|--------|--------|--------|
+|    SG_for    |    10 000 000   |    9 971 770    |    28 230 (0.28 %)    |
+|    SG_rev    |    10 000 000     |    9 971 7700    |    28 230 (0.28 %)    |
+|    3C_for   |    5 000 000    |    4 664 225   |    335 775 (6.7%)    |
+|    3C_rev    |    5 000 000    |    4 664 2255    |    335 775 (6.7%)    |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+## D. Assemblage : Megahit
+
+On va lancer un programme d'assemblage au nom de **MegaHit* qui va donc assembler nos reads sous forme de contigs. On fera ce megahit sur SG (pas 3C car, petit reads et pas beaucoup de reads et les for et rev peuvent être éloignés de plusiuers Mb)
+
 
 
 FastQC en fasta : sed -n '1~4s/^@/>/p;2~4p' fastq_dir/reads.LegPneuPar3X.fastq | fold -w 80 > fasta_dir/reads.LegPneuPar3X.fasta
