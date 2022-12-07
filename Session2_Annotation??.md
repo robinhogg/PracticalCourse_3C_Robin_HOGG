@@ -25,8 +25,29 @@ SEQUENCE
 ```
 L'en-tête correspond à : >numéro_du_contig # début # fin # sens # ID_du_gène ; partial ; type_codon_start ; motif_site_liaison_ribosome ; distance_espacement_binding_site_ribosome ; contenu_en_GC
 
+L'étape d'après est de confronter ces séquences de gènes putatif contre des bases de données afin de voir des homologies entre ces gènes putatifs et des gènes déjà décrits.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-**Question 1 : Combien de lignes un read occupe-t-il ?**
+**Question 17 : Combien de gènes putatifs détectez-vous ? combien de protéines ?**
+>
 
->Dans un ficher .fastq, il y a 4 lignes par read.
+
+**Question 18 : Combien de gènes complets ? incomplets ?**
+
+
+
+**Question 19: Quelle est la longueur moyenne des gènes détectés ?**
+
+
+
+**Question 20 : Quel est le plus long gène détecté ?**
+
+
+
+**Question 21 : Quel est la longueur totale des gènes détectés ?**
+
+
+
+**Question 22 : Quelle est la densité en séquences codantes de votre assemblage ? cette valeur vous semble-t-elle cohérente ?**
+
+
