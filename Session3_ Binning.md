@@ -18,27 +18,26 @@ Où
 -a = l'assemblage;
 -o output.
 ```
-En 3C, on aligne le for et rev de manière indépendante et on merge ensuite le résultat. La qualité du mapping est à 30. Le programme utilise l'aligneur Bowtie2.
+En 3C, on aligne le for et rev de manière indépendante et on merge ensuite le résultat. La qualité du mapping est à 30. Le programme utilise l'aligneur Bowtie2. Il faut réevaluer les données en normalisant avec les bruits de fond. La normalisation dite empirique est celle qui apporte les meilleurs résultats actuellement. On ne garde pas aussi les intéractions d'un contig sur lui-même.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 27 : Combien de nœuds (ou contigs) contient votre réseau global ?**
-
-
-
+On passe par awk :
+```
+cat binning/metator/network.txt | awk '{print $1"\n"$2}' | sort -u | wc -l | awk '{print "il y a "$1" noeud"}'
+```
+>On a : 9 369 noeuds (contigs) (contre 20 566 de base).
 
 **Question 28 : Combien de paires de reads ont été alignées ?**
-
-
-
+On peut lire directement dans le fichier log créer par metator :
+> On a : 3 948 736 pairs aligned.
 
 **Question 29 : Combien de paires de reads ont été alignées sur deux contigs différents ?**
-
-
-
+On peut lire directement dans le fichier log créer par metator :
+>
 
 **Question 30 : déduisez en le 3D ratio (nb de reads liant 2 contigs différent par rapport au nombre total de reads alignés)**
-
-
-
+Le 3D ratio est une mesure de qualité. On peut lire directement dans le fichier log créer par metator :
+>Le 3D ratio est : 0.5761192948832234
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
