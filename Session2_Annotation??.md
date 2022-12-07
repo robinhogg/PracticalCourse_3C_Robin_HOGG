@@ -105,9 +105,9 @@ diamond blastp -p 8 --db database/Res_aa.dmnd -o annotations/blast_output/prot_v
 ```
 On passe ensuite par awk :
 ```
-cat annotations/blast_output/prot_vs_AMR_2.txt | awk '{print $1,$3,($5/$4)*100}' | awk '$2>=80 && $3>=80 {print $1}' | sort -u | wc -l
+cat annotations/blast_output/prot_vs_AMR_2.txt | awk '{print $1,$3,($5/$4)*100}' | awk '$2>=80 && $3>=80 {print $1}' | sort -u | wc -l | awk '{print "le nombre de gènes candidats est de : "$1}'
 ```
->On trouve 200 gènes candidats avec ces seuils assez stricts.
+>On trouve 210 gènes candidats avec ces seuils assez stricts.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 ### b. HMM (Modèle de Markov caché)
 
@@ -119,7 +119,12 @@ hmmsearch --tblout annotations/hmm_output/prot_vs_resfam.txt --cpu 2 database/Re
 **Question 25 : Combien de candidats obtenez vous avec cette méthode ?**
 On utiliser la foncton :
 ```
-grep -c "NODE"  annotations/hmm_output/prot_vs_resfam.txt
+cat annotations/hmm_output/prot_vs_resfam.txt | grep "NODE" | awk '{print $1}' | sort -u | wc -l | awk '{print "le nombre de gènes candidats est de : "$1}'
 ```
->On trouve 41 542 candidats trouvés avec HMMER.
+>On trouve 14 826 candidats trouvés avec HMMER sans modifier les paramètres.
+On relance le HMMER avec un nouveau paramètre (-E) permettant de sélectionner la E-Value. (Les auteurs de la base de données ResFams préconisent un seuil de détection de 1e-50 au niveau de la protéine entière.)
+```
+hmmsearch --tblout annotations/hmm_output/prot_vs_resfam.txt -E 1e-50 --cpu 2 database/Resfams.hmm  annotations/prodigal/assembly_prot.fa  >  annotations/hmm_output/prot_vs_resfam.out
+```
+>On relance la fonction pour chercher le nombre de candidats et on trouve 2 392 candidats avec cette -E de  1e-50.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
