@@ -151,5 +151,6 @@ cat annotations/blast_output/prot_vs_AMR_2.txt | awk '{print $1,$3,($5/$4)*100}'
 ```
 On fait le diagramme de vein sur : http://bioinformatics.psb.ugent.be/webtools/Venn/
 
+![prodigal](/pictures/venn_result29840.png){:height="36px" width="36px"}.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
