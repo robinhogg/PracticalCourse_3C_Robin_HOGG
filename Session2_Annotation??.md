@@ -25,8 +25,6 @@ SEQUENCE
 ```
 L'en-tête correspond à : >numéro_du_contig # début # fin # sens # ID_du_gène ; partial ; type_codon_start ; motif_site_liaison_ribosome ; distance_espacement_binding_site_ribosome ; contenu_en_GC
 
-L'étape d'après est de confronter ces séquences de gènes putatif contre des bases de données afin de voir des homologies entre ces gènes putatifs et des gènes déjà décrits.
-
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 17 : Combien de gènes putatifs détectez-vous ? combien de protéines ?**
 >
@@ -49,5 +47,9 @@ L'étape d'après est de confronter ces séquences de gènes putatif contre des 
 
 
 **Question 22 : Quelle est la densité en séquences codantes de votre assemblage ? cette valeur vous semble-t-elle cohérente ?**
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+L'étape d'après est de confronter ces séquences de gènes putatif contre des bases de données afin de voir des homologies entre ces gènes putatifs et des gènes déjà décrits. On peut aussi utiliser des algorithmes de type HMM afin de voir des motifs caractéristiques de différent élements génétique.
 
+## B. Caractérisation des ORFs putatives
 
+### a. Diamonds
