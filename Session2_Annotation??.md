@@ -102,7 +102,6 @@ cat annotations/blast_output/prot_vs_AMR.txt | awk '{print $1}' | sort -u | wc -
 On refais un diamond :
 ```
 diamond blastp -p 8 --db database/Res_aa.dmnd -o annotations/blast_output/prot_vs_AMR_2.txt --outfmt 6 qseqid sseqid pident slen length -q annotations/prodigal/assembly_prot.fa
-
 ```
 On passe ensuite par awk :
 ```
@@ -116,8 +115,11 @@ Le programme le plus utilisé pour les HMM est **HMMER**. C'est une boîte à ou
 ```
 hmmsearch --tblout annotations/hmm_output/prot_vs_resfam.txt --cpu 2 database/Resfams.hmm  annotations/prodigal/assembly_prot.fa  >  annotations/hmm_output/prot_vs_resfam.out
 ```
-
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 25 : Combien de candidats obtenez vous avec cette méthode ?**
-
+On utiliser la foncton :
+```
+grep -c "NODE"  annotations/hmm_output/prot_vs_resfam.txt
+```
+>On trouve 41 542 candidats trouvés avec HMMER.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
