@@ -117,6 +117,7 @@ hmmsearch --tblout annotations/hmm_output/prot_vs_resfam.txt --cpu 2 database/Re
 ```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 25 : Combien de candidats obtenez vous avec cette méthode ?**
+
 On utiliser la foncton :
 ```
 cat annotations/hmm_output/prot_vs_resfam.txt | grep "NODE" | awk '{print $1}' | sort -u | wc -l | awk '{print "le nombre de gènes candidats est de : "$1}'
@@ -127,4 +128,16 @@ On relance le HMMER avec un nouveau paramètre (-E) permettant de sélectionner 
 hmmsearch --tblout annotations/hmm_output/prot_vs_resfam.txt -E 1e-50 --cpu 2 database/Resfams.hmm  annotations/prodigal/assembly_prot.fa  >  annotations/hmm_output/prot_vs_resfam.out
 ```
 >On relance la fonction pour chercher le nombre de candidats et on trouve 2 392 candidats avec cette -E de  1e-50.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+A disposition, on a des fichiers résultats de programmes spécifiques qui va chercher directement des gènes candidats avec des caractéristique précises. Par exemple : **Resfinder** chercher des gènes de résistance aux antibiotiques.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 26 : Combien de gènes candidats le programme Resfinder détecte t il ? faites une comparaison avec les méthodes précédentes.
+On utilise awk :
+```
+cat database/Resfinder_results_table.txt  | grep "NODE" | awk '{print $7}' | sort -u | wc -l | awk '{print "le nombre de gènes candidats résistance aux antibiotiques : "$1}'
+```
+>On trouve 50 gènes candidats aux gènes de résistance aux antibiotiques
+
+IL FAUT EXTRAIDE NODE DES TROIS TRUC ET LE FAIRE COMME LE PREMIER PUIS VEIN
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
