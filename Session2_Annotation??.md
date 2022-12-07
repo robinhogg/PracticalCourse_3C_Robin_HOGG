@@ -18,6 +18,13 @@ où
 > * -o : Output pour ORFs détectées;
 > * -d : Output ORFs putatives mais les séquences nucléotidiques.
 
+Le programme Prodigal va nous rendre un fichier avec des séquences de ce format :
+```
+>contig1_1 # 2 # 232 # -1 # ID=1_1 ; partial=10 ; start_type=ATG ; rbs_motif=None ; rbs_spacer=None ; gc_cont=0.424
+SEQUENCE
+```
+L'en-tête correspond à : >numéro_du_contig # début # fin # sens # ID_du_gène ; partial ; type_codon_start ; motif_site_liaison_ribosome ; distance_espacement_binding_site_ribosome ; contenu_en_GC
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 1 : Combien de lignes un read occupe-t-il ?**
