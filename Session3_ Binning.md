@@ -34,10 +34,64 @@ On peut lire directement dans le fichier log créer par metator :
 
 **Question 29 : Combien de paires de reads ont été alignées sur deux contigs différents ?**
 On peut lire directement dans le fichier log créer par metator :
->
+>On a 2274943 contacts inter-contigs in the library.
 
 **Question 30 : déduisez en le 3D ratio (nb de reads liant 2 contigs différent par rapport au nombre total de reads alignés)**
 Le 3D ratio est une mesure de qualité. On peut lire directement dans le fichier log créer par metator :
 >Le 3D ratio est : 0.5761192948832234
+On a donc environ un read sur deux qui map sur deux contigs différents.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### b. Partitionnement du réseau d'interaction
+
+Maintenant que on a le réseau, on va faire tourner l'algo de Louvain :
+```
+export LOUVAIN_PATH=software/gen-louvain/
+```
+Puis :
+```
+metator partition -i 1 -O 100 -t 2 -n binning/metator/network.txt -c binning/metator/contig_data_network.txt -a assemblage/assembly_all.fa -o binning/metator/
+```
+Où :
+> * -i = itération de louvain
+> * -t = threads
+> * -n = le network
+> * -c = le fichier contig
+> * -a = fichier assemblage
+> * -o = output
+> * -O = seuil de overlap (%)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 31 : Combien de bins détectez-vous ?**
+On peut regarder la sortie d'erreur standard du programme :
+>On a 692 core bins.
+
+
+**Question 32 : Combien de contigs ne sont associés à aucun autre (ou combien de communautés ne comprennent qu'un seul contig) ?**
+Manière longue :
+```
+grep -c "^.*       .*      .*      .*      .*      .*      .*      -" binning/metator/contig_data_partition.txt
+```
+Manière awk :
+```
+cat binning/metator/contig_data_partition.txt | awk '{print $2,$8}' | grep "-" | wc -l | awk '{print "Il y a "$1" contigs orphelins"}'
+```
+>On a 11 197 contigs qui ne sont associés à aucun autre.
+
+
+**Question 33 : Combien de bin contiennent plus de 10 Kb, 100 Kb, 500 Kb et 1 Mb de séquences ?**
+On utilise awk en replançant le chiffre après $10>= par 10 000, 100 000, 500 000 et 1 000 000 :
+```
+cat binning/metator/contig_data_partition.txt | awk '$10>=10000 {print $8,$10}'|sort -u | wc -l | awk '{print "Il y a "$1" contigs >=10kb"}'
+```
+>On a 59 bins >= 10 Kb, 42 >= 100 Kb, 34 >= 500 Kb et 34 >= 1 Mb. On peut faire l'approximation que on a bien entre 30 et 40 génomes dans notre assemblage initial.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+On refais tourner l'algo (-F supprimer et remplace) :
+```
+metator partition -i 1 -O 100 -F -t 4 -n binning/metator/network.txt -c binning/metator/contig_data_network.txt -a assemblage/assembly_all.fa -o binning/metator/
+```
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 34 : Détectez-vous le même nombre de communautés que précédemment ? Ces communautés sont-elles de la même taille ? Qu'en déduisez-vous ?**
+>Non, cette algo n'est pas déterministe (=stochastique). On va avoir des résultats différents entre chaque lancement.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
