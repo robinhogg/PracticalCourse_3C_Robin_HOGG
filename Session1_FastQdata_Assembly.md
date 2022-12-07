@@ -1,11 +1,11 @@
 # Session 1: Contrôle qualité et traitement des séquences brutes issues du séquençage
 
-Avant de traiter les données ont les récupèrent :
-  Récuperer le jeu de données 7 : 
+Avant de traiter les données, ont les récupèrent :
+  Récupérer le jeu de données 7 : 
  ```
   scp rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_ENSEIGNEMENTS/2022-2023/ANALYSE_DES_GENOMES_2022_2023/TP_Meta3C/fastq/lib9_* fastq/
    ```
-  Récuperer séq. adaptateur illumina : 
+  Récupérer les séquences des adaptateurs illumina : 
    ```
   scp -r rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_ENSEIGNEMENTS/2022-2023/ANALYSE_DES_GENOMES_2022_2023/TP_Meta3C/database/ ./
    ```
@@ -35,7 +35,7 @@ zcat (nom du fichier.gz) | head
 					
 **Question 3 : Combien de reads forward et reverse avez-vous dans vos jeux de données ?**
 
-Façon d'y repondre laborieuse :
+Façon d'y répondre laborieuse :
 ```
 zgrep -c "^@" nom_du_fichier
 ```
@@ -54,7 +54,7 @@ for type in 3C SG; do for sens in for rev; do echo "lib in progress:""$type""$se
 
 **Question 4 : Quelle est la longueur des reads (SG et 3C) ?**
 
->Les reads 3C sont beaucoup plus petits. Pour le 3C on veut du réseau d'intéraction = pas besoin de grand reads qui coute chère. Pour l'assemblage, il faut des grands reads (SG)
+>Les reads 3C sont beaucoup plus petits. Pour le 3C on veut du réseau d'interaction = pas besoin de grand reads qui coûte chère. Pour l'assemblage, il faut des grands reads (SG)
 
 **Question 5 : Quels "Tags" sont associés à vos librairies ?
 
@@ -77,17 +77,17 @@ où
 -t (nombre de CPU offert pour la tâche 
 --nogroupe (graph pour chaque base)
 ```
-**Résultats obvervés :**	
+**Résultats observés :**	
 >La qualité globale des reads 3C sont excellent. Comparer à un small RNA seq, on n'a pas de séquence répété alarmante. On voit par contre, dans les >séquences surrepressenté les adaptateur TruSeq adaptater index 7 (mais vraiment léger).
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 7 : En analysant et comparant les rapports de qualité, quelles différences observez vous entre vos différentes banques ? Quelle est l’enzyme que vous avez utilisée pour faire votre banque 3C ?**
->Pour le contenue en base de nos reads, pour SG, on voit que c'est homogène tout le long. Pour 3C, en début de reads, on voit un enrechissement de la >séquence : GATC. Cela proviens des enzymes de restriction que l'on as utilisées. On a utilisé une enzyme équivalente à DpnII (GATC). Donc, on enrichie >notre librairie en bout de séquence par ce motif. Cela permet de voir aussi que la banque 3C à bien marché : c'est le cas ici.
+>Pour le contenue en base de nos reads, pour SG, on voit que c'est homogène tout le long. Pour 3C, en début de reads, on voit un enrichissement de la >séquence : GATC. Cela proviens des enzymes de restriction que l'on as utilisées. On a utilisé une enzyme équivalente à DpnII (GATC). Donc, on enrichie >notre librairie en bout de séquence par ce motif. Cela permet de voir aussi que la banque 3C à bien marché : c'est le cas ici.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## C. Cutadapt : détection et retrait des séquences d’adaptateurs
 
-On va netoyer/grignoter nos reads. Onpeut par exemple enlever des séquences "enzyme de restriction" en début de reads, grignoter les reads si la qualité est mauvaise dans les bouts, supprimer les adaptateurs etc.
-Pour ce faire on va utilisé **Cutadapt** (accepte missmatch dans les adapteurs jusqu'à un certain niveau).
+On va nettoyer/grignoter nos reads. On peut par exemple enlever des séquences "enzyme de restriction" en début de reads, grignoter les reads si la qualité est mauvaise dans les bouts, supprimer les adaptateurs etc.
+Pour ce faire on va utilisé **Cutadapt** (accepte missmatch dans les adaptateurs jusqu'à un certain niveau).
 
 Les commandes que j'ai utilisé pour cut sont les suivantes :
 ```
@@ -108,8 +108,8 @@ Pour chaque fichier :
 ```
 /Formation_AdG/FastQC/fastqc -t 2 --nogroup -o fastq/rapport_qualite/ fastq/lib9_filtre_SG_for.fastq.gz > log_files/fastqc_filter_SG_for.log 2>&1
 ```
-**Résultats obvervés :**	
->On a plus d'aptateur sur-représenter dans mes données sauf dans le 3C rev où on retrouve quand même une séquence intriguante (METTRE SEQUENCE) dans les séquences sur-représentées du rapport fastQC n'ayant aucun hit dans leur banque et dans le blastn.
+**Résultats observés :**	
+>On a plus d'adaptateur sur-représenter dans mes données sauf dans le 3C rev où on retrouve quand même une séquence intriguante (METTRE SEQUENCE) dans les séquences sur-représentées du rapport fastQC n'ayant aucun hit dans leur banque et dans le blastn.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 8 : Combien de reads avez-vous gardé après cette étape de filtration ?**
@@ -122,11 +122,11 @@ Pour chaque fichier :
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 ## D. Assemblage : Megahit
 
-On va lancer un programme d'assemblage au nom de **MegaHit* qui va donc assembler nos reads sous forme de contigs. On fera ce megahit sur SG (pas 3C car, petit reads et pas beaucoup de reads et les for et rev peuvent être éloignés de plusiuers Mb)
+On va lancer un programme d'assemblage au nom de **MegaHit* qui va donc assembler nos reads sous forme de contigs. On fera ce megahit sur SG (pas 3C car, petit reads et pas beaucoup de reads et les for et rev peuvent être éloignés de plusieurs Mb)
 ```
 /Formation_AdG/MEGAHIT-1.2.9-Linux-x86_64-static/bin/megahit -t 2 -1 fastq/lib9_filtre_SG_for.fastq.gz -2 fastq/lib9_filtre_SG_rev.fastq.gz -o assemblage/lib9/ > log_files/megahit_lib9_log 2>&1
 ```
-`Par manque de temps, on va sauter cette étape et récuprer directement un assemblage complet réaliser par l'encadrant :`
+`Par manque de temps, on va sauter cette étape et récupérer directement un assemblage complet réaliser par l'encadrant :`
 ```
 scp rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_ENSEIGNEMENTS/2022-2023/ANALYSE_DES_GENOMES_2022_2023/TP_Meta3C/assemblage/assembly_all.fa assemblage/ 
 ```
@@ -162,7 +162,7 @@ On va ensuite chercher à obtenir des informations statistique sur notre assembl
 ```
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 14 : Quelles sont les données fournies par Quast ?**
->Les données sont assez diverses. On a par exemple la taille totale de notre assemblage : 171 321 468 bp qui nous permet d'estimer à environs 50, le nombre d'espèces attendus (3-4 Mb par génom). On a aussi des information sur la qualité de l'assemblage (avec les N et L).  On a aussi la couvertur en %GC et encore bon nombre d'informations sur l'assemblage.
+>Les données sont assez diverses. On a par exemple la taille totale de notre assemblage : 171 321 468 bp qui nous permet d'estimer à environs 50, le nombre d'espèces attendus (3-4 Mb par génome). On a aussi des information sur la qualité de l'assemblage (avec les N et L).  On a aussi la couverture en %GC et encore bon nombre d'informations sur l'assemblage.
 
 **Question 15 : Donnez une définition du N50 ?**
 > * N50 =information sur la fragmentation de assemblage : taille du plus petit conting permettant de couvrir 50% de l'assemblage. (tout les contigs au dessus (avec >lui) permette de faire 50% de l'assemblage)
