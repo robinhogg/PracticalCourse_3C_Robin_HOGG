@@ -129,15 +129,27 @@ hmmsearch --tblout annotations/hmm_output/prot_vs_resfam.txt -E 1e-50 --cpu 2 da
 ```
 >On relance la fonction pour chercher le nombre de candidats et on trouve 2 392 candidats avec cette -E de  1e-50.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 A disposition, on a des fichiers résultats de programmes spécifiques qui va chercher directement des gènes candidats avec des caractéristique précises. Par exemple : **Resfinder** chercher des gènes de résistance aux antibiotiques.
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-**Question 26 : Combien de gènes candidats le programme Resfinder détecte t il ? faites une comparaison avec les méthodes précédentes.
+**Question 26 : Combien de gènes candidats le programme Resfinder détecte t il ? faites une comparaison avec les méthodes précédentes.**
 On utilise awk :
 ```
 cat database/Resfinder_results_table.txt  | grep "NODE" | awk '{print $7}' | sort -u | wc -l | awk '{print "le nombre de gènes candidats résistance aux antibiotiques : "$1}'
 ```
 >On trouve 50 gènes candidats aux gènes de résistance aux antibiotiques
+On créer 3 fichiers pour le diagramme de veine au format NODE_X_NODE_X :
+```
+cat database/Resfinder_results_table.txt  | grep "NODE" | awk '{print $6}' | sort -u > annotations/Resfinder_vein.txt
+```
+```
+cat annotations/hmm_output/prot_vs_resfam.txt | grep "NODE" | awk '{print $1}' | sort -u | sed 's/_/ /g' | awk '{print $1"_"$2"_"$3"_"$4}' | sort -u > annotations/HMM_resfinder_vein.txt
+```
+```
+cat annotations/blast_output/prot_vs_AMR_2.txt | awk '{print $1,$3,($5/$4)*100}' | awk '$2>=80 && $3>=80 {print $1}' | sort -u | sed 's/_/ /g' | awk '{print $1"_"$2"_"$3"_"$4}' | sort -u > annotations/blast_vein.txt
+```
+On fait le diagramme de vein sur : http://bioinformatics.psb.ugent.be/webtools/Venn/
 
-IL FAUT EXTRAIDE NODE DES TROIS TRUC ET LE FAIRE COMME LE PREMIER PUIS VEIN
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
