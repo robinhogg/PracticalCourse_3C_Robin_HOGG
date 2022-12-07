@@ -94,4 +94,4 @@ metator partition -i 1 -O 100 -F -t 4 -n binning/metator/network.txt -c binning/
 **Question 34 : Détectez-vous le même nombre de communautés que précédemment ? Ces communautés sont-elles de la même taille ? Qu'en déduisez-vous ?**
 >Non, cette algo n'est pas déterministe (=stochastique). On va avoir des résultats différents entre chaque lancement.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-
+-
