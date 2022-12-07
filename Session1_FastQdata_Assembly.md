@@ -56,7 +56,7 @@ for type in 3C SG; do for sens in for rev; do echo "lib in progress:""$type""$se
 
 >Les reads 3C sont beaucoup plus petits. Pour le 3C on veut du réseau d'interaction = pas besoin de grand reads qui coûte chère. Pour l'assemblage, il faut des grands reads (SG)
 
-**Question 5 : Quels "Tags" sont associés à vos librairies ?
+**Question 5 : Quels "Tags" sont associés à vos librairies ?**
 
 >Tags = index de l'adaptateur. SG = GAATTCGT+AGGCTATA , 3C = AGCGATAG+AGGCTATA
 
