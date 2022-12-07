@@ -109,7 +109,7 @@ Pour chaque fichier :
 /Formation_AdG/FastQC/fastqc -t 2 --nogroup -o fastq/rapport_qualite/ fastq/lib9_filtre_SG_for.fastq.gz > log_files/fastqc_filter_SG_for.log 2>&1
 ```
 **Résultats observés :**	
->On a plus d'adaptateur sur-représenter dans mes données sauf dans le 3C rev où on retrouve quand même une séquence intriguante (METTRE SEQUENCE) dans les séquences sur-représentées du rapport fastQC n'ayant aucun hit dans leur banque et dans le blastn.
+>On a plus d'adaptateur sur-représenter dans mes données sauf dans le 3C rev où on retrouve quand même une séquence intriguante (GGCTACAGCATCTGCGTTTGTCTATGGTGATGAAT) dans les séquences sur-représentées du rapport fastQC n'ayant aucun hit dans leur banque et dans le blastn.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 **Question 8 : Combien de reads avez-vous gardé après cette étape de filtration ?**
@@ -147,14 +147,14 @@ Une version épurée :
 ```
 cat assembly_all.fa | grep "^>" | sed 's/_/ /g' | sort -k 4,4 -g -r | head -1 | awk '{print "le plus grand contig fait : "$4"bp"}'
 ```
->La taille du plus grand contig est de XX XXX bp.
+>La taille du plus grand contig est de 1 041 876 bp.
 
 **Question 11: Quelle est la taille moyenne de vos contigs ?**
 Pour ce faire, pas le choix, on passe par awk et son NR (nombre de ligne d'un fichier) :
 ```
 cat assembly_all.fa | grep "^>" | awk -F "_" '{sum+=$4} END {print sum/NR}' | awk '{print "en moyennne les contigs font : "$1"bp"}'
 ```
->La taille moyenne de nos contigs est de XX XXX bp.
+>La taille moyenne de nos contigs est de 8 473.06 bp.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 On va ensuite chercher à obtenir des informations statistique sur notre assemblage. Pour ce faire, on va utiliser le programme **Quast** tel que :
 ```
