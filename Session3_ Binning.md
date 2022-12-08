@@ -110,3 +110,7 @@ Ensuite on passr sur R : AJOUTER FICHIER SCRIPT R ICI
 
 On a :
 ![prodigal](/pictures/Graph1.png)
+
+```
+for iter in 1 2 3 4 5 10 20 30 40 50; do for o in 80; do cat binning/metator_"$iter"_"$o"/contig_data_partition.txt | awk '$10>=100000 {print $8,$10}'|sort -u | awk '{sum+= $2} END {print sum}' | awk '{print $1}' >> temp2.txt; echo "$iter" >> temp2.txt;  echo "o$o" >> temp2.txt ; done; done
+```
