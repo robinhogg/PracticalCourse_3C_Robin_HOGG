@@ -119,7 +119,7 @@ Ensuite, on veut afficher pour différente range de Kb, la somme des tailles par
 for iter in 1 2 3 4 5 10 20 30 40 50; do for o in 80; do cat binning/metator_"$iter"_"$o"/contig_data_partition.txt | awk '$10>=100000 && $10<=500000 {print $8,$10}'|sort -u | awk '{sum+= $2} END {print sum}' | awk '{print $1}' >> temp_2.txt; echo "i$iter" >> temp_2.txt;  echo "o$o" >> temp_2.txt ; done; done
 ```
 On fais ça pour 4 range et le total et avec un -O de 80.
-Ensuite on passe sur R : AJOUTER FICHIER SCRIPT R ICI
+Ensuite on passe sur R : [Script](Script_R/Script_analyse_iteration.R)
 
 On as :
 ![prodigal](/pictures/Graph2.png)
@@ -145,12 +145,12 @@ Puis, on lance l'analyse :
 miComplete binning/metator_20_80/overlapping_bin/listbins.tab --threads 8 --hmms Bact105 -o binning/metator_20_80/miComplete.txt 
 ```
 Dans le fichier de miComplete.txt  le completeness c'est 100 + % de contamination (1.17 = 17% de contamination) et Markers = completetion/100 donc 0.72 de markers = 72% completion.
-On peut alors représenter la qualité de nos génomes ici (un utilisant R : NOM DU SCRIPT) :
+On peut alors représenter la qualité de nos génomes ici (un utilisant R : [Script](Script_R/Script_analyse_parametre_genome.r)) :
 ![prodigal](/pictures/Graph3.png)
 (Les lignes rouges représentes les seuils d'un "bon génome" (>90% de complétion et <10% de contamination)
 On voit alors des génomes très contaminer et d'autres incomplets. On peut retenir alors 16 génomes sur les 25 (5 très contaminés et 3 trop incomplets)
 
-On fais ça avec itérations = 1/5/20/50. FICHIER : R
+On fais ça avec itérations = 1/5/20/50. FICHIER : [Script](Script_R/Script_analyse_parametre_genome.r)
 ![prodigal](/pictures/Graph4.png)
 
 ## C. Analyse des bins obtenus
@@ -159,5 +159,5 @@ On télécharge le dossier :
 ```
 scp -r rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_ENSEIGNEMENTS/2022-2023/ANALYSE_DES_GENOMES_2022_2023/TP_Meta3C/metator_final/ binning/ .
 ```
-
-
+Dans ce dossier, on trouve pas mal de fichier donc un bin_summary.txt qui va nous servir pour réaliser plusieurs analyses. D'abors, on peut l'utiliser pour réaliser des picharts de notre communauté artificielle ([Script](Script_R/Script_pie_plot.R)
+![prodigal](/pictures/Graph5.png)
