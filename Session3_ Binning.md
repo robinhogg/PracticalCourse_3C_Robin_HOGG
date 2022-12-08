@@ -102,3 +102,11 @@ Ensuite on va lancer une boucle pour compiler des données dans un fichier texte
 ```
 for iter in 1 2 3 4 5 10 20 30 40 50; do for o in 50 60 70 80 90 100; do cat binning/metator_"$iter"_"$o"/contig_data_partition.txt | awk '$10>=100000 {print $8,$10}'|sort -u | wc -l | awk '{print $1}' >> temp1.txt; echo "$iter" >> temp1.txt;  echo "o$o" >> temp1.txt ; done; done
 ```
+On paste ensuite pour avoir une beau tableau :
+```
+cat temp1.txt |paste - - - > temp.csv
+```
+Ensuite on passr sur R : AJOUTER FICHIER SCRIPT R ICI
+
+On a :
+
