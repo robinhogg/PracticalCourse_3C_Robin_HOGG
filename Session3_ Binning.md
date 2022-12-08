@@ -145,3 +145,8 @@ Puis, on lance l'analyse :
 ```
 miComplete binning/metator_20_80/overlapping_bin/listbins.tab --threads 8 --hmms Bact105 -o binning/metator_20_80/miComplete.txt 
 ```
+Dans le fichier de miComplete.txt  le completeness c'est 100 + % de contamination (1.17 = 17% de contamination) et Markers = completetion/100 donc 0.72 de markers = 72% completion.
+On peut alors représenter la qualité de nos génomes ici (un utilisant R : NOM DU SCRIPT) :
+![prodigal](/pictures/Graph3.png)
+
+On voit alors des génomes très contaminer et d'autres incomplets. On peut retenir alors 16 génomes sur les 25 (5 très contaminés et 3 trop incomplets)
