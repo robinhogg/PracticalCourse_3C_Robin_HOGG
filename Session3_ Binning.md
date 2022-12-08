@@ -134,8 +134,7 @@ sudo pip install micomplete
 ```
 On prend -i 20 et -O 80 pour la suite de l'analyse. Metator copie les génomes qu'il détecte dans le dossier overlapping_bin. C'est les fichiers de se dossier que on va donner à miComplete :
 ```
-var=$(ls -l binning/metator_20_80/overlapping_bin/ | sed '1d' | awk '{print $9}' | awk -F "." '{print $1}')
-for i in $var; do cp binning/metator_20_80/overlapping_bin/"$i".fa binning/metator_20_80/overlapping_bin/"$i".fna; done
+var=$(ls -l binning/metator_20_80/overlapping_bin/ | sed '1d' | awk '{print $9}' |grep ".fa" | awk -F "." '{print $1}') ; for i in $var; do cp binning/metator_20_80/overlapping_bin/"$i".fa binning/metator_20_80/overlapping_bin/"$i".fna; done
 ```
 On lui créer une liste aussi :
 ```
@@ -150,3 +149,15 @@ On peut alors représenter la qualité de nos génomes ici (un utilisant R : NOM
 ![prodigal](/pictures/Graph3.png)
 (Les lignes rouges représentes les seuils d'un "bon génome" (>90% de complétion et <10% de contamination)
 On voit alors des génomes très contaminer et d'autres incomplets. On peut retenir alors 16 génomes sur les 25 (5 très contaminés et 3 trop incomplets)
+
+On fais ça avec itérations = 1/5/20/50. FICHIER : R
+![prodigal](/pictures/Graph4.png)
+
+## C. Analyse des bins obtenus
+
+On télécharge le dossier :
+```
+scp -r rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_ENSEIGNEMENTS/2022-2023/ANALYSE_DES_GENOMES_2022_2023/TP_Meta3C/metator_final/ binning/ .
+```
+
+
