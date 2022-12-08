@@ -148,5 +148,5 @@ miComplete binning/metator_20_80/overlapping_bin/listbins.tab --threads 8 --hmms
 Dans le fichier de miComplete.txt  le completeness c'est 100 + % de contamination (1.17 = 17% de contamination) et Markers = completetion/100 donc 0.72 de markers = 72% completion.
 On peut alors représenter la qualité de nos génomes ici (un utilisant R : NOM DU SCRIPT) :
 ![prodigal](/pictures/Graph3.png)
-
+(Les lignes rouges représentes les seuils d'un "bon génome" (>90% de complétion et <10% de contamination)
 On voit alors des génomes très contaminer et d'autres incomplets. On peut retenir alors 16 génomes sur les 25 (5 très contaminés et 3 trop incomplets)
