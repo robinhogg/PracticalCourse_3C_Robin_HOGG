@@ -94,4 +94,11 @@ metator partition -i 1 -O 100 -F -t 4 -n binning/metator/network.txt -c binning/
 **Question 34 : Détectez-vous le même nombre de communautés que précédemment ? Ces communautés sont-elles de la même taille ? Qu'en déduisez-vous ?**
 >Non, cette algo n'est pas déterministe (=stochastique). On va avoir des résultats différents entre chaque lancement.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
--
+On va faire tourner l'algo de Louvain avec plusieurs -i et -O différent pour voir comment le binning évolue.
+```
+for iter in 1 2 3 4 5 10 20 30 40 50; do for o in 50 60 70 80 90 100; do metator partition -i "$iter" -O "$o" -t 4 -n binning/metator/network.txt -c binning/metator/contig_data_network.txt -a assemblage/assembly_all.fa -o binning/metator_"$iter"_"$o"; done; done
+```
+Ensuite on va lancer une boucle pour compiler des données dans un fichier texte :
+```
+for iter in 1 2 3 4 5 10 20 30 40 50; do for o in 50 60 70 80 90 100; do cat binning/metator_"$iter"_"$o"/contig_data_partition.txt | awk '$10>=100000 {print $8,$10}'|sort -u | wc -l | awk '{print $1}' >> temp1.txt; echo "$iter" >> temp1.txt;  echo "o$o" >> temp1.txt ; done; done
+```
