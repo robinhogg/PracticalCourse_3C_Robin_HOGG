@@ -109,4 +109,4 @@ cat temp1.txt |paste - - - > temp.csv
 Ensuite on passr sur R : AJOUTER FICHIER SCRIPT R ICI
 
 On a :
-
+![prodigal](/pictures/Graph1.png)
