@@ -102,7 +102,7 @@ Ensuite on va lancer une boucle pour compiler des données dans un fichier texte
 ```
 for iter in 1 2 3 4 5 10 20 30 40 50; do for o in 50 60 70 80 90 100; do cat binning/metator_"$iter"_"$o"/contig_data_partition.txt | awk '$10>=100000 {print $8,$10}'|sort -u | wc -l | awk '{print $1}' >> temp1.txt; echo "$iter" >> temp1.txt;  echo "o$o" >> temp1.txt ; done; done
 ```
-On paste ensuite pour avoir une beau tableau :
+On paste ensuite pour avoir un beau tableau :
 ```
 cat temp1.txt |paste - - - > temp.csv
 ```
@@ -123,3 +123,25 @@ Ensuite on passe sur R : AJOUTER FICHIER SCRIPT R ICI
 
 On as :
 ![prodigal](/pictures/Graph2.png)
+
+## B. Validation des bins
+
+Les logiciels se basent sur les 43 gènes présents en une seule copie dans un génome bactérien pour évaluer la qualité des bins.
+
+On va installer miComplete :
+```
+sudo pip install micomplete
+```
+On prend -i 20 et -O 80 pour la suite de l'analyse. Metator copie les génomes qu'il détecte dans le dossier overlapping_bin. C'est les fichiers de se dossier que on va donner à miComplete :
+```
+var=$(ls -l binning/metator_20_80/overlapping_bin/ | sed '1d' | awk '{print $9}' | awk -F "." '{print $1}')
+for i in $var; do cp binning/metator_20_80/overlapping_bin/"$i".fa binning/metator_20_80/overlapping_bin/"$i".fna; done
+```
+On lui créer une liste aussi :
+```
+find binning/metator_20_80/overlapping_bin/ -maxdepth 1 -type f -name "*.fna" | miCompletelist.sh > binning/metator_20_80/overlapping_bin/listbins.tab
+```
+Puis, on lance l'analyse :
+```
+miComplete binning/metator_20_80/overlapping_bin/listbins.tab --threads 8 --hmms Bact105 -o binning/metator_20_80/miComplete.txt 
+```
