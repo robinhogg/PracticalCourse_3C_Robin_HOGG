@@ -106,7 +106,7 @@ On paste ensuite pour avoir un beau tableau :
 ```
 cat temp1.txt |paste - - - > temp.csv
 ```
-Ensuite on passe sur R : AJOUTER FICHIER SCRIPT R ICI
+Ensuite on passe sur R : [Script](Script_R/Script_analyse_iteration.R)
 
 On a :
 ![prodigal](/pictures/Graph1.png)
