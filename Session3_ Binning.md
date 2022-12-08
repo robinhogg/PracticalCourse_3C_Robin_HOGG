@@ -111,6 +111,8 @@ Ensuite on passe sur R : AJOUTER FICHIER SCRIPT R ICI
 On a :
 ![prodigal](/pictures/Graph1.png)
 
+>On voit que à 20 de itérations, on a quelque chose de stable et avec un -O de 80/90.
+
 Ensuite, on veut afficher pour différente range de Kb, la somme des tailles par itérations :
 
 ```
@@ -119,3 +121,5 @@ for iter in 1 2 3 4 5 10 20 30 40 50; do for o in 80; do cat binning/metator_"$i
 On fais ça pour 4 range et le total et avec un -O de 80.
 Ensuite on passe sur R : AJOUTER FICHIER SCRIPT R ICI
 
+On as :
+![prodigal](/pictures/Graph2.png)
