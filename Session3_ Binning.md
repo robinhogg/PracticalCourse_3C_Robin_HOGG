@@ -161,3 +161,15 @@ scp -r rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_
 ```
 Dans ce dossier, on trouve pas mal de fichier donc un bin_summary.txt qui va nous servir pour réaliser plusieurs analyses. D'abors, on peut l'utiliser pour réaliser des picharts de notre communauté artificielle ([Script](Script_R/Script_pie_plot.R)
 ![prodigal](/pictures/Graph5.png)
+
+## D. Matrice d'intéraction
+
+On va créer cette matrice d'intéraction à l'aide de métator (et sa fonction contact map) et **hicstuff** tel que :
+```
+metator contactmap -t 8 -a assemblage/assembly_all.fa -c metator_final/contig_data_final.txt -e DpnII,HinfI -n "MetaTOR_22_2" -p metator_final/alignment_0.pairs -f -o matrices/MetaTOR_22_2/ -O "final_bin"
+```
+```
+hicstuff view -n -b 10kb -f matrices/MetaTOR_22_2/MetaTOR_22_2.frags.tsv -o matrices/MetaTOR_22_2/mat_10kb_norm.pdf matrices/MetaTOR_22_2/MetaTOR_22_2.mat.tsv
+```
+Voila le genre de rendu que l'on a : ![prodigal](/pictures/Graph6.png)
+
