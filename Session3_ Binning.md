@@ -204,3 +204,7 @@ On peut partir de la séquence du contig de se phage pour le blaster sur le NCBI
 [Graphique](/pictures/Graph7.png)
 
 On voit bien la tache ne haut à droite avec un log(couverture) et %GC très différent de son hôte en base a droite.
+
+## D. Conclusion générale
+
+AU début, on avais mis : 6 phages, une dizaine de plasmide, 44 microorganisme et des crottes de souris avec 12 bactéries connues. On voit seulement 32 génomes nous ! On arrive donc pas a caractériser toutes les espèces que on a mis à l'origine ! Aussi, avec le 3C et nos algos, on detecte les bactéries à plusieurs chromosomes que les algo de binning ont du mal à voir.
