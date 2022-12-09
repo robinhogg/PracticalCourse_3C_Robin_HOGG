@@ -148,10 +148,20 @@ Dans le fichier de miComplete.txt  le completeness c'est 100 + % de contaminatio
 On peut alors représenter la qualité de nos génomes ici (un utilisant R : [Script](Script_R/Script_analyse_parametre_genome.r)) :
 ![prodigal](/pictures/Graph3.png)
 (Les lignes rouges représentes les seuils d'un "bon génome" (>90% de complétion et <10% de contamination)
-On voit alors des génomes très contaminer et d'autres incomplets. On peut retenir alors 16 génomes sur les 25 (5 très contaminés et 3 trop incomplets)
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 35 : Combien de génome(s) reconstruit(s) et complet(s) avez-vous ? Quelle proportion en terme de séquence cela représente t il ?**
+>On voit alors des génomes très contaminer et d'autres incomplets. On peut retenir alors 16 génomes sur les 25 (5 très contaminés et 3 trop incomplets)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 On fais ça avec itérations = 1/5/20/50. FICHIER : [Script](Script_R/Script_analyse_parametre_genome.r)
 ![prodigal](/pictures/Graph4.png)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+**Question 36 : faites une analyse comparative de votre binning en fonction des différentes itérations**
+>On voit que, pour notre communauté artificielle, l'effet de l'itération est très faible sur les différents paramètres testés (taille, couverture, contamination).
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## C. Analyse des bins obtenus
 
@@ -186,6 +196,8 @@ cat database/VirSorter_results_table.txt | grep "circular"
 On trouve donc un énorme phage de plus de 200 Kb qui après des grep infecte cette organisme (Metator_49_0) :
 Hote du phage : k__Bacteria;p__Proteobacteria;c__Gammaproteobacteria;o__Pseudomonadales;f__Pseudomonadaceae;g__Pseudomonas;s__Pseudomonas_aeruginosa
 
-On peut partir de la séquence du contig de se phage pour le blaster sur le NCBI virus qui nous donnera que c'est le phage PhikZ ! On regarde ensuite la converture et %GC de Metator_49_0 [Script](Script_bash/bin_analysis.sh) :
+On peut partir de la séquence du contig de se phage pour le blaster sur le NCBI avec le taxis bactial virus qui nous donnera que c'est le phage PhikZ ([Report_Blast](blast_report/T61EHBT201N-Alignment.txt) ! On regarde ensuite la converture et %GC de Metator_49_0 [Script](Script_bash/bin_analysis.sh) :
 
 [Graphique](/pictures/Graph7.png)
+
+On voit bien la tache ne haut à droite avec un log(couverture) et %GC très différent de son hôte en base a droite.
