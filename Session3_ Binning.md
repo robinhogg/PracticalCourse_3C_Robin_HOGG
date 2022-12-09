@@ -188,4 +188,4 @@ Hote du phage : k__Bacteria;p__Proteobacteria;c__Gammaproteobacteria;o__Pseudomo
 
 On peut partir de la séquence du contig de se phage pour le blaster sur le NCBI virus qui nous donnera que c'est le phage PhikZ ! On regarde ensuite la converture et %GC de Metator_49_0 [Script](Script_bash/bin_analysis.sh) :
 
-[prodigal](/pictures/Graph7.png)
+[Graphique](/pictures/Graph7.png)
