@@ -171,7 +171,8 @@ scp -r rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_
 ```
 Dans ce dossier, on trouve pas mal de fichier donc un bin_summary.txt qui va nous servir pour réaliser plusieurs analyses. D'abors, on peut l'utiliser pour réaliser des picharts de notre communauté artificielle [Script](Script_R/Script_pie_plot.R)
 ![prodigal](/pictures/Graph5.png)
-(L'abondance est en %)
+
+(L'abondance est en %). On voit que donc une bactérie présente plusieurs fois peut avoir une abondance faible et inversement.
 
 ## D. Matrice d'intéraction
 
