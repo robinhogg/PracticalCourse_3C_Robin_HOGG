@@ -159,7 +159,7 @@ On télécharge le dossier :
 ```
 scp -r rhogg@sftpcampus.pasteur.fr:/pasteur/gaia/projets/p01/Enseignements/GAIA_ENSEIGNEMENTS/2022-2023/ANALYSE_DES_GENOMES_2022_2023/TP_Meta3C/metator_final/ binning/ .
 ```
-Dans ce dossier, on trouve pas mal de fichier donc un bin_summary.txt qui va nous servir pour réaliser plusieurs analyses. D'abors, on peut l'utiliser pour réaliser des picharts de notre communauté artificielle ([Script](Script_R/Script_pie_plot.R)
+Dans ce dossier, on trouve pas mal de fichier donc un bin_summary.txt qui va nous servir pour réaliser plusieurs analyses. D'abors, on peut l'utiliser pour réaliser des picharts de notre communauté artificielle [Script](Script_R/Script_pie_plot.R)
 ![prodigal](/pictures/Graph5.png)
 
 ## D. Matrice d'intéraction
@@ -173,3 +173,18 @@ hicstuff view -n -b 10kb -f matrices/MetaTOR_22_2/MetaTOR_22_2.frags.tsv -o matr
 ```
 Voila le genre de rendu que l'on a : ![prodigal](/pictures/Graph6.png)
 
+Le petit carré tout seul en bas a droit représente le phage Spp1. Les lignes blanches sont les séquences répétées.
+
+On regarde ensuite les contigs les plus couverts pour faire leur map :
+```
+cat metator_final/contig_data_final.txt | sed '1d' | awk '$3>= 30000 {print $2,($5*35)/$3,$17}' | sort -k 2,2 -g -r | head
+```
+On va maintenant partir à la recherche du plus grand phage circulaire detecté par :
+```
+cat database/VirSorter_results_table.txt | grep "circular"
+```
+On trouve donc un énorme phage de plus de 200 Kb qui après des grep infecte cette organisme (Metator_49_0) :
+Hote du phage : k__Bacteria;p__Proteobacteria;c__Gammaproteobacteria;o__Pseudomonadales;f__Pseudomonadaceae;g__Pseudomonas;s__Pseudomonas_aeruginosa
+
+On peut partir de la séquence du contig de se phage pour le blaster sur le NCBI virus qui nous donnera que c'est le phage PhikZ ! On regarde ensuite la converture et %GC de Metator_49_0 [Script](Script_bash/bin_analysis.sh) :
+[prodigal](/pictures/Graph7.png)
