@@ -187,4 +187,5 @@ On trouve donc un énorme phage de plus de 200 Kb qui après des grep infecte ce
 Hote du phage : k__Bacteria;p__Proteobacteria;c__Gammaproteobacteria;o__Pseudomonadales;f__Pseudomonadaceae;g__Pseudomonas;s__Pseudomonas_aeruginosa
 
 On peut partir de la séquence du contig de se phage pour le blaster sur le NCBI virus qui nous donnera que c'est le phage PhikZ ! On regarde ensuite la converture et %GC de Metator_49_0 [Script](Script_bash/bin_analysis.sh) :
+
 [prodigal](/pictures/Graph7.png)
