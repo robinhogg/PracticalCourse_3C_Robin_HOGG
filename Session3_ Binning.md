@@ -196,7 +196,10 @@ cat database/VirSorter_results_table.txt | grep "circular"
 On trouve donc un énorme phage de plus de 200 Kb qui après des grep infecte cette organisme (Metator_49_0) :
 Hote du phage : k__Bacteria;p__Proteobacteria;c__Gammaproteobacteria;o__Pseudomonadales;f__Pseudomonadaceae;g__Pseudomonas;s__Pseudomonas_aeruginosa
 
-On peut partir de la séquence du contig de se phage pour le blaster sur le NCBI avec le taxis bactial virus qui nous donnera que c'est le phage PhikZ ([Report_Blast](blast_report/T61EHBT201N-Alignment.txt) ! On regarde ensuite la converture et %GC de Metator_49_0 [Script](Script_bash/bin_analysis.sh) :
+On fais aussi la matrice d'intéraction de ce contig de 200 kb du phage où l'on voit bien que c'est circulaire (1px : 10Kb) :
+[Matrice](/pictures/Graph8.png)
+
+On peut partir de la séquence du contig de se phage pour le blaster sur le NCBI avec le taxis bactial virus qui nous donnera que c'est le phage PhikZ ([Report_Blast](blast_report/T61EHBT201N-Alignment.txt)) ! On regarde ensuite la converture et %GC de Metator_49_0 [Script](Script_bash/bin_analysis.sh) :
 
 [Graphique](/pictures/Graph7.png)
 
